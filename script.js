@@ -37,7 +37,7 @@ if(inquiry){
   const cleanup=()=>{window.removeEventListener('message',receive);transport.remove();setTimeout(()=>frame.remove(),1000)};
   const timeout=setTimeout(()=>{if(!finished){finished=true;button.disabled=false;note.textContent='We could not confirm submission. Please check before trying again, or use the direct email link.';cleanup()}},25000);
   function receive(event){
-   if(event.source!==frame.contentWindow || !event.data || event.data.kind!=='portfolio-inquiry' || event.data.nonce!==nonce)return;
+   if (!event.data || event.data.kind !== 'portfolio-inquiry' || event.data.nonce !== nonce) return;
    // Google Apps Script serves HTML through googleusercontent.com.
    if(!/^https:\/\/(?:[a-z0-9-]+\.)*googleusercontent\.com$/.test(event.origin) && event.origin!=='https://script.google.com')return;
    if(finished)return;finished=true;clearTimeout(timeout);button.disabled=false;
